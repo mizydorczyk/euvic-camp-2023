@@ -6,6 +6,7 @@ public static class SwaggerServiceExtension
     {
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
         return services;
     }
 }

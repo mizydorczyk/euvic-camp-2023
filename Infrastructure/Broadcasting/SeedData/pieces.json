@@ -1,0 +1,52 @@
+[
+  {
+    "Id": 1,
+    "Title": "Rolling In The Deep",
+    "ArtistId": 1
+  },
+  {
+    "Id": 2,
+    "Title": "Set Fire To The Rain",
+    "ArtistId": 1
+  },
+  {
+    "Id": 3,
+    "Title": "Bad Guy",
+    "ArtistId": 2
+  },
+  {
+    "Id": 4,
+    "Title": "Everything I Wanted",
+    "ArtistId": 2
+  },
+  {
+    "Id": 5,
+    "Title": "Shape Of You",
+    "ArtistId": 3
+  },
+  {
+    "Id": 6,
+    "Title": "Thinking Out Loud",
+    "ArtistId": 3
+  },
+  {
+    "Id": 7,
+    "Title": "Blood on the Leaves",
+    "ArtistId": 4
+  },
+  {
+    "Id": 8,
+    "Title": "Through The Wire",
+    "ArtistId": 4
+  },
+  {
+    "Id": 9,
+    "Title": "Nice For What",
+    "ArtistId": 5
+  },
+  {
+    "Id": 10,
+    "Title": "Laugh Now Cry Later",
+    "ArtistId": 5
+  }
+]

@@ -1,0 +1,102 @@
+[
+  {
+    "Id": 1,
+    "RadioChannelId": 1,
+    "PieceId": 1
+  },
+  {
+    "Id": 2,
+    "RadioChannelId": 1,
+    "PieceId": 2
+  },
+  {
+    "Id": 3,
+    "RadioChannelId": 2,
+    "PieceId": 3
+  },
+  {
+    "Id": 4,
+    "RadioChannelId": 2,
+    "PieceId": 4
+  },
+  {
+    "Id": 5,
+    "RadioChannelId": 2,
+    "PieceId": 5
+  },
+  {
+    "Id": 6,
+    "RadioChannelId": 3,
+    "PieceId": 6
+  },
+  {
+    "Id": 7,
+    "RadioChannelId": 3,
+    "PieceId": 7
+  },
+  {
+    "Id": 8,
+    "RadioChannelId": 3,
+    "PieceId": 8
+  },
+  {
+    "Id": 9,
+    "RadioChannelId": 3,
+    "PieceId": 9
+  },
+  {
+    "Id": 10,
+    "RadioChannelId": 1,
+    "PieceId": 10
+  },
+  {
+    "Id": 11,
+    "RadioChannelId": 2,
+    "PieceId": 1
+  },
+  {
+    "Id": 12,
+    "RadioChannelId": 3,
+    "PieceId": 2
+  },
+  {
+    "Id": 13,
+    "RadioChannelId": 1,
+    "PieceId": 3
+  },
+  {
+    "Id": 14,
+    "RadioChannelId": 2,
+    "PieceId": 4
+  },
+  {
+    "Id": 15,
+    "RadioChannelId": 3,
+    "PieceId": 5
+  },
+  {
+    "Id": 16,
+    "RadioChannelId": 3,
+    "PieceId": 6
+  },
+  {
+    "Id": 17,
+    "RadioChannelId": 2,
+    "PieceId": 7
+  },
+  {
+    "Id": 18,
+    "RadioChannelId": 2,
+    "PieceId": 8
+  },
+  {
+    "Id": 19,
+    "RadioChannelId": 2,
+    "PieceId": 9
+  },
+  {
+    "Id": 20,
+    "RadioChannelId": 1,
+    "PieceId": 10
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "Id": 1,
+    "Name": "RMF FM",
+    "Frequency": 93.3
+  },
+  {
+    "Id": 2,
+    "Name": "Tok FM",
+    "Frequency": 97.4
+  },
+  {
+    "Id": 3,
+    "Name": "Antyradio",
+    "Frequency": 106.4
+  }
+]

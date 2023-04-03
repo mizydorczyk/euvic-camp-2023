@@ -5,23 +5,21 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Core\Core.csproj" />
+        <ProjectReference Include="..\Core\Core.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Broadcasting\Configurations" />
-        <Folder Include="Identity" />
-        <Folder Include="Services" />
+        <Folder Include="Services"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.27.0" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
-        <PackageReference Include="StackExchange.Redis" Version="2.6.104" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.27.0"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3"/>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0"/>
+        <PackageReference Include="StackExchange.Redis" Version="2.6.104"/>
     </ItemGroup>
 </Project>

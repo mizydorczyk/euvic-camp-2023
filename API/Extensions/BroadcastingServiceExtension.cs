@@ -10,7 +10,8 @@ public static class BroadcastingServiceExtension
     {
         services.AddDbContext<BroadcastingDbContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("BroadcastingConnection") ?? throw new Exception("Broadcasting connection string not found"));
+            options.UseNpgsql(
+                configuration.GetConnectionString("BroadcastingConnection") ?? throw new Exception("Broadcasting connection string not found"));
         });
 
         services.AddSingleton<IConnectionMultiplexer>(x =>

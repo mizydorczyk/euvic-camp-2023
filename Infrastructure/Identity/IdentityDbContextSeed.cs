@@ -25,7 +25,7 @@ public static class IdentityDbContextSeed
             EmailConfirmed = true
         };
         await userManager.CreateAsync(admin, "Pa$$w0rd");
-        await userManager.AddToRoleAsync(admin, "Admin");
+        await userManager.AddToRolesAsync(admin, new[] { "Admin", "User" });
 
         var user = new User
         {

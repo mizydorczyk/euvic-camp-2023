@@ -11,14 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddBroadcastingServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddSwaggerDocumentation();
+builder.Services.AddFluentValidation();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+if (app.Environment.IsDevelopment()) app.UseSwaggerDocumentation();
 
 app.UseHttpsRedirection();
 

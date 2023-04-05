@@ -1,4 +1,5 @@
 using System.Text;
+using API.Helpers;
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Identity;
@@ -22,16 +23,16 @@ public static class IdentityServiceExtension
         services.AddIdentity<User, Role>()
             .AddRoleManager<RoleManager<Role>>()
             .AddSignInManager<SignInManager<User>>()
-            .AddEntityFrameworkStores<IdentityDbContext>();
+            .AddEntityFrameworkStores<IdentityDbContext>()
+            .AddDefaultTokenProviders()
+            .AddTokenProvider<EmailConfirmationTokenProvider<User>>("EmailConfirmation");
 
         services.Configure<IdentityOptions>(options => { options.Password.RequireNonAlphanumeric = false; });
 
-        services.Configure<IdentityOptions>(options =>
-        {
-            // options.SignIn.RequireConfirmedEmail = true;
-        });
+        services.Configure<IdentityOptions>(options => { options.SignIn.RequireConfirmedEmail = true; });
 
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IEmailService, EmailService>();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

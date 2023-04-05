@@ -1,4 +1,5 @@
 using API.Extensions;
+using API.Middlewares;
 using Core.Entities;
 using Infrastructure.Broadcasting;
 using Infrastructure.Identity;
@@ -18,6 +19,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment()) app.UseSwaggerDocumentation();
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<RequestTimeMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

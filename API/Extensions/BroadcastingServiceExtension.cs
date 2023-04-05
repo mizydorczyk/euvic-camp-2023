@@ -1,3 +1,4 @@
+using API.Middlewares;
 using Infrastructure.Broadcasting;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
@@ -19,6 +20,9 @@ public static class BroadcastingServiceExtension
             var options = ConfigurationOptions.Parse(configuration.GetConnectionString("Redis") ?? throw new Exception("Redis connection string not found"));
             return ConnectionMultiplexer.Connect(options);
         });
+
+        services.AddScoped<ErrorHandlingMiddleware>();
+        services.AddScoped<RequestTimeMiddleware>();
 
         return services;
     }

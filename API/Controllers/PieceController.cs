@@ -27,11 +27,11 @@ public class PieceController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<PieceDto>> GetPieceById([FromRoute] int id)
+    public async Task<ActionResult<PieceWithProgrammeItemsDto>> GetPieceById([FromRoute] int id)
     {
         var piece = await _pieceRepository.GetByIdAsync(id);
         if (piece == null) return NotFound("Piece not found");
 
-        return Ok(_mapper.Map<PieceDto>(piece));
+        return Ok(_mapper.Map<PieceWithProgrammeItemsDto>(piece));
     }
 }

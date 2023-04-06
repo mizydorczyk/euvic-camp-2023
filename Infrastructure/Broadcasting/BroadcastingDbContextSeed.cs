@@ -34,7 +34,6 @@ public static class BroadcastingDbContextSeed
             if (pieces == null) throw new Exception("pieces.json is empty or deserialization has gone terribly wrong");
             foreach (var piece in pieces)
             {
-                piece.Views = random.Next();
                 piece.ReleaseDate = DateTime.UtcNow.AddDays(-random.Next(365));
                 piece.Duration = TimeSpan.FromSeconds(random.Next(120, 300));
             }
@@ -46,6 +45,7 @@ public static class BroadcastingDbContextSeed
             if (programmeItems == null) throw new Exception("programItems.json is empty or deserialization has gone terribly wrong");
             foreach (var programmeItem in programmeItems)
             {
+                programmeItem.Views = random.Next();
                 programmeItem.PlaybackDate = DateTime.UtcNow - TimeSpan.FromHours(random.Next(1, 100));
                 var piece = pieces.FirstOrDefault(x => x.Id == programmeItem.PieceId);
                 if (piece == null)

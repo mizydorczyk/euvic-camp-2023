@@ -18,6 +18,7 @@ public class PieceRepository : IPieceRepository
     {
         var pieces = await _dbContext.Pieces
             .Include(x => x.Artist)
+            .Include(x => x.ProgrammeItems)
             .ToListAsync();
 
         return pieces;
@@ -27,6 +28,7 @@ public class PieceRepository : IPieceRepository
     {
         var piece = await _dbContext.Pieces
             .Include(x => x.Artist)
+            .Include(x => x.ProgrammeItems).ThenInclude(x => x.RadioChannel)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         return piece;

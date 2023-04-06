@@ -10,7 +10,6 @@ public class PieceConfiguration : IEntityTypeConfiguration<Piece>
     {
         builder.Property(x => x.Title).IsRequired().HasMaxLength(32);
         builder.Property(x => x.ReleaseDate).IsRequired().HasColumnType("date");
-        builder.Property(x => x.Views).IsRequired().HasColumnType("bigint");
         builder.Property(x => x.Duration).IsRequired().HasColumnType("interval");
         builder.Property(x => x.Version).HasMaxLength(32);
         builder.Property(x => x.PictureUrl).HasMaxLength(64);

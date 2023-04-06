@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Broadcasting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Broadcasting.Migrations
 {
     [DbContext(typeof(BroadcastingDbContext))]
-    partial class BroadcastingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230406110621_ProgrammeItemsViewsAdded")]
+    partial class ProgrammeItemsViewsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

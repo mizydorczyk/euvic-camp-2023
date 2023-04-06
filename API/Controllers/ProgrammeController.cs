@@ -21,17 +21,17 @@ public class ProgrammeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<ProgrammeItemDto>>> GetProgrammeItems()
+    public async Task<ActionResult<IReadOnlyList<ProgrammeItemWithPieceDto>>> GetProgrammeItems()
     {
-        return Ok(_mapper.Map<List<ProgrammeItemDto>>(await _programmeItemRepository.GetALlAsync()));
+        return Ok(_mapper.Map<List<ProgrammeItemWithPieceDto>>(await _programmeItemRepository.GetALlAsync()));
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<ProgrammeItemDto>> GetProgrammeItemById([FromRoute] int id)
+    public async Task<ActionResult<ProgrammeItemWithPieceDto>> GetProgrammeItemById([FromRoute] int id)
     {
         var programmeItem = await _programmeItemRepository.GetByIdAsync(id);
         if (programmeItem == null) return NotFound("Programme item not found");
 
-        return Ok(_mapper.Map<ProgrammeItemDto>(programmeItem));
+        return Ok(_mapper.Map<ProgrammeItemWithPieceDto>(programmeItem));
     }
 }

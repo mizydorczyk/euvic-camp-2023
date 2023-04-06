@@ -4,8 +4,6 @@ using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Identity;
 using Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -33,7 +31,7 @@ public static class IdentityServiceExtension
 
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IEmailService, EmailService>();
-        
+
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = "Bearer";
@@ -47,10 +45,10 @@ public static class IdentityServiceExtension
             {
                 ValidIssuer = configuration["Token:Issuer"] ?? throw new Exception("Issuer is not specified"),
                 ValidAudience = configuration["Token:Audience"] ?? throw new Exception("Audience is not specified"),
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Token:Key"] ?? throw new Exception("Key is not specified"))),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Token:Key"] ?? throw new Exception("Key is not specified")))
             };
         });
-        
+
         services.AddAuthorization();
 
         return services;

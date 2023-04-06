@@ -9,6 +9,7 @@ public class ProgrammeConfiguration : IEntityTypeConfiguration<ProgrammeItem>
     public void Configure(EntityTypeBuilder<ProgrammeItem> builder)
     {
         builder.Property(x => x.PlaybackDate).IsRequired().HasColumnType("timestamp with time zone");
+        builder.Property(x => x.Views).IsRequired().HasColumnType("bigint");
         builder.Property(x => x.BroadcastingDuration).IsRequired().HasColumnType("interval");
         builder.Property(x => x.RadioChannelId).IsRequired();
 
@@ -18,6 +19,6 @@ public class ProgrammeConfiguration : IEntityTypeConfiguration<ProgrammeItem>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(x => x.Piece)
-            .WithMany(x => x.ProgrammesItems);
+            .WithMany(x => x.ProgrammeItems);
     }
 }

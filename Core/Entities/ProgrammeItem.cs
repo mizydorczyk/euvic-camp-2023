@@ -4,6 +4,7 @@ public class ProgrammeItem : BaseEntity
 {
     public DateTime PlaybackDate { get; set; }
     public TimeSpan BroadcastingDuration { get; set; }
+    public long Views { get; set; }
 
     public RadioChannel RadioChannel { get; set; }
     public int RadioChannelId { get; set; }

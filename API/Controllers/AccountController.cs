@@ -3,6 +3,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
@@ -26,14 +27,21 @@ public class AccountController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult> Register([FromBody] RegisterDto dto)
     {
+        if (await _userManager.Users.FirstOrDefaultAsync(x => x.NormalizedEmail == dto.Email.Trim().ToUpper()) != null)
+            return BadRequest("Email is already in use");
+
         var user = new User
         {
             UserName = dto.Email[..dto.Email.IndexOf('@')],
             Email = dto.Email
         };
 
-        var result = await _userManager.CreateAsync(user, dto.Password);
-        if (!result.Succeeded) return BadRequest("Problem registering user");
+        var results = new[]
+        {
+            await _userManager.CreateAsync(user, dto.Password),
+            await _userManager.AddToRoleAsync(user, "User")
+        };
+        if (!results.All(x => x.Succeeded)) return BadRequest("Problem registering user");
 
         var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         var confirmationLink = Url.Action("ConfirmEmail", "Account", new { token, email = user.Email }, Request.Scheme);

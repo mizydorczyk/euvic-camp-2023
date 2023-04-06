@@ -10,12 +10,7 @@ public class RegisterDtoValidator : AbstractValidator<RegisterDto>
     {
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Email must not be empty.")
-            .EmailAddress()
-            .Custom((value, context) =>
-            {
-                if (userManager.Users.FirstOrDefault(x => x.NormalizedEmail == value.Trim().ToUpper()) != null)
-                    context.AddFailure("Email", "Email is already in use");
-            });
+            .EmailAddress();
 
         RuleFor(x => x.Password)
             .NotEmpty().WithMessage("Password must not be empty.")

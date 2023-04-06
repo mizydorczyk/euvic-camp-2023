@@ -1,0 +1,49 @@
+.credits {
+  color: gray;
+}
+
+.close, .open {
+  color: lightgray;
+  cursor: pointer;
+}
+
+hr {
+  border: 1px solid lightgray;
+  border-radius: 1px;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler, .btn,
+.btn:active,
+.btn:focus {
+  box-shadow: none;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+.btn-nav, .btn-nav:focus {
+  padding: 5px 15px;
+  border-radius: 20px;
+  border: 1px solid lightgray;
+  color: rgba(38, 56, 80, 255);
+  background: transparent;
+
+  &:hover, &.active {
+    background-color: whitesmoke;
+  }
+}
+
+
+.btn-sign, .btn-sign:focus {
+  padding: 5px 15px;
+  border-radius: 20px;
+  border: 1px solid lightgray;
+  color: rgba(38, 56, 80, 255);
+  background: transparent;
+
+  &:hover {
+    background-color: whitesmoke;
+  }
+}

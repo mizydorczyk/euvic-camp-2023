@@ -37,7 +37,8 @@ public class TokenService : ITokenService
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.Now.AddDays(7),
             SigningCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature),
-            Issuer = _issuer
+            Issuer = _issuer,
+            Audience = _issuer
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();

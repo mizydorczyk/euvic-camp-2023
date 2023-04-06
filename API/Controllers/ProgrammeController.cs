@@ -1,12 +1,14 @@
 using API.Models;
 using AutoMapper;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "User")]
 public class ProgrammeController : ControllerBase
 {
     private readonly IMapper _mapper;

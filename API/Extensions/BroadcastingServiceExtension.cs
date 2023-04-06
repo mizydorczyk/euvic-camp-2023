@@ -1,5 +1,7 @@
 using API.Middlewares;
+using Core.Interfaces;
 using Infrastructure.Broadcasting;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
@@ -21,8 +23,12 @@ public static class BroadcastingServiceExtension
             return ConnectionMultiplexer.Connect(options);
         });
 
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
         services.AddScoped<ErrorHandlingMiddleware>();
         services.AddScoped<RequestTimeMiddleware>();
+        services.AddScoped<IProgrammeItemRepository, ProgrammeItemRepository>();
+        services.AddScoped<IPieceRepository, PieceRepository>();
 
         return services;
     }

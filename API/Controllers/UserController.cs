@@ -37,14 +37,14 @@ public class UserController : ControllerBase
 
         var results = new[]
         {
-            await _userManager.CreateAsync(user, dto.Password), 
+            await _userManager.CreateAsync(user, dto.Password),
             await _userManager.AddToRoleAsync(user, "User")
         };
         if (!results.All(x => x.Succeeded)) return BadRequest("Problem registering user");
 
-        return Ok("User created successfully. No need for email confirmation");
+        return Ok();
     }
-    
+
     [HttpDelete("{email}")]
     public async Task<ActionResult> Delete([FromRoute] string email)
     {
@@ -52,7 +52,7 @@ public class UserController : ControllerBase
         if (user == null) return BadRequest("User does not exist");
 
         var result = await _userManager.DeleteAsync(user);
-        if (result.Succeeded) return Ok("User deleted successfully");
+        if (result.Succeeded) return Ok();
 
         return BadRequest("Problem deleting user");
     }
@@ -62,11 +62,9 @@ public class UserController : ControllerBase
     {
         var user = await _userManager.FindByEmailAsync(email);
         if (user == null) return BadRequest("User does not exist");
-        
+
         if (await _userManager.Users.FirstOrDefaultAsync(x => x.NormalizedEmail == dto.Email.Trim().ToUpper()) != null && dto.Email != email)
-        {
             return BadRequest("Email is already in use");
-        }
 
         user.UserName = dto.Email[..dto.Email.IndexOf('@')];
         user.Email = dto.Email;
@@ -74,8 +72,8 @@ public class UserController : ControllerBase
         user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, dto.Password);
 
         var result = await _userManager.UpdateAsync(user);
-        if(result.Succeeded) return Ok("User updated successfully");
-        
+        if (result.Succeeded) return Ok();
+
         return BadRequest("Problem updating user");
     }
 }

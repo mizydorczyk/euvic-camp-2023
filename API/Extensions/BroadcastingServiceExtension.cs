@@ -30,6 +30,11 @@ public static class BroadcastingServiceExtension
         services.AddScoped<IProgrammeItemRepository, ProgrammeItemRepository>();
         services.AddScoped<IPieceRepository, PieceRepository>();
 
+        services.AddCors(options =>
+        {
+            options.AddPolicy("Default", policy =>
+                policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(configuration["CORS:Default"] ?? throw new Exception("CORS origin string not found")));
+        });
         return services;
     }
 }

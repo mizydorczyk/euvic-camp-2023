@@ -26,7 +26,7 @@ public class EmailService : IEmailService
         mailMessage.Subject = "Confirm your email";
         mailMessage.Body = new TextPart("plain")
         {
-            Text = confirmationLink
+            Text = $"We are pleased to have you join us. Confirm your email by clicking link below.\n{confirmationLink} \n\nBest regards,\neuvic-camp-2023"
         };
 
         using (var smtpClient = new SmtpClient())
@@ -35,7 +35,7 @@ public class EmailService : IEmailService
             smtpClient.Authenticate(_email, _password);
             var result = smtpClient.Send(mailMessage);
             smtpClient.Disconnect(true);
-            if (result.Length > 0) return Task.FromResult(true);
+            if (result.Contains("OK")) return Task.FromResult(true);
         }
 
         return Task.FromResult(false);

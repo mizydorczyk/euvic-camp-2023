@@ -18,6 +18,8 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment()) app.UseSwaggerDocumentation();
 
+app.UseCors("Default");
+
 app.UseHttpsRedirection();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseMiddleware<RequestTimeMiddleware>();

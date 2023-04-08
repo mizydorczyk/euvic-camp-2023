@@ -28,6 +28,7 @@ public class TokenService : ITokenService
 
         var claims = new List<Claim>
         {
+            new(ClaimTypes.NameIdentifier, user.UserName),
             new(ClaimTypes.Email, user.Email)
         };
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));

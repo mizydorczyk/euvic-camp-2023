@@ -1,12 +1,11 @@
-using System.Text;
 using API.Helpers;
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Identity;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace API.Extensions;
 
@@ -29,24 +28,30 @@ public static class IdentityServiceExtension
         services.Configure<IdentityOptions>(options => { options.Password.RequireNonAlphanumeric = false; });
         services.Configure<IdentityOptions>(options => { options.SignIn.RequireConfirmedEmail = true; });
 
-        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<ICookieService, CookieService>();
         services.AddScoped<IEmailService, EmailService>();
 
         services.AddAuthentication(options =>
         {
-            options.DefaultAuthenticateScheme = "Bearer";
-            options.DefaultScheme = "Bearer";
-            options.DefaultChallengeScheme = "Bearer";
-        }).AddJwtBearer(cfg =>
+            options.DefaultAuthenticateScheme = "Cookies";
+            options.DefaultScheme = "Cookies";
+            options.DefaultChallengeScheme = "Cookies";
+        }).AddCookie(options =>
         {
-            cfg.RequireHttpsMetadata = false;
-            cfg.SaveToken = true;
-            cfg.TokenValidationParameters = new TokenValidationParameters
+            options.Events = new CookieAuthenticationEvents
             {
-                ValidIssuer = configuration["Token:Issuer"] ?? throw new Exception("Issuer is not specified"),
-                ValidAudience = configuration["Token:Audience"] ?? throw new Exception("Audience is not specified"),
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Token:Key"] ?? throw new Exception("Key is not specified")))
+                OnRedirectToLogin = ctx =>
+                {
+                    if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200) ctx.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                },
+                OnRedirectToAccessDenied = ctx =>
+                {
+                    if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200) ctx.Response.StatusCode = 403;
+                    return Task.CompletedTask;
+                }
             };
+            options.ExpireTimeSpan = TimeSpan.FromDays(3);
         });
 
         services.AddAuthorization();

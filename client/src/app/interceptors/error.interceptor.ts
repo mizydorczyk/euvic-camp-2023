@@ -3,6 +3,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {catchError, Observable, throwError} from 'rxjs';
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -17,7 +18,9 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.toastr.error(error.error)
           }
           if (error.status === 401) {
-            this.toastr.error(error.error)
+            if (request.url !== environment.apiUrl + 'account') {
+              this.toastr.error('You are unauthorized');
+            }
           }
           if (error.status === 404) {
             this.toastr.error('Thing you are looking for isn\'t here');
@@ -29,7 +32,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.router.navigateByUrl('');
           }
         }
-        return throwError(() => new Error(error.error));
+        return throwError(() => new Error(error.message));
       })
     )
   }

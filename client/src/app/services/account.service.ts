@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 import {BehaviorSubject, map} from "rxjs";
 import {User} from "../../models/user";
 import jwtDecode from "jwt-decode";
-import {DecodedToken} from "../../models/decodedToken";
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +18,16 @@ export class AccountService {
   }
 
   login(values: any) {
-    return this.http.post(this.baseUrl + 'account/login', values).pipe(
-      map(response => {
-        const decodedToken = this.DecodeToken(response.toString()) as DecodedToken;
-        const user = {
-          userName: decodedToken.nameid,
-          email: decodedToken.email,
-          token: response.toString(),
-          roles: decodedToken.role
-        } as User;
+    return this.http.post<User>(this.baseUrl + 'account/login', values, {withCredentials: true}).pipe(
+      map(user => {
+        this.currentUserSource.next(user);
+      })
+    )
+  }
+
+  loadCurrentUser() {
+    return this.http.get<User>(this.baseUrl + 'account', {withCredentials: true}).pipe(
+      map(user => {
         this.currentUserSource.next(user);
       })
     )
@@ -38,8 +38,11 @@ export class AccountService {
   }
 
   logout() {
-    this.currentUserSource.next(null);
-    this.router.navigateByUrl('/sign-in');
+    return this.http.post(this.baseUrl + 'account/logout', {}, {withCredentials: true}).pipe(
+      map(() => {
+        this.currentUserSource.next(null);
+      })
+    )
   }
 
   private DecodeToken(token: string) {

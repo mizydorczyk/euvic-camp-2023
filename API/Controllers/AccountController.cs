@@ -1,7 +1,10 @@
-using System.Text.Json;
+using System.Security.Claims;
 using API.Models;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,21 +15,37 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class AccountController : ControllerBase
 {
+    private readonly ICookieService _cookieService;
     private readonly string _emailConfirmationRedirectionUrl;
     private readonly IEmailService _emailService;
     private readonly SignInManager<User> _signInManager;
-    private readonly ITokenService _tokenService;
     private readonly UserManager<User> _userManager;
 
-    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService, IEmailService emailService,
+    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ICookieService cookieService, IEmailService emailService,
         IConfiguration configuration)
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _tokenService = tokenService;
+        _cookieService = cookieService;
         _emailService = emailService;
         _emailConfirmationRedirectionUrl =
             configuration["Urls:EmailConfirmationRedirection"] ?? throw new Exception("EmailConfirmationRedirection is not specified");
+    }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<ActionResult<UserDto>> GetCurrentUser()
+    {
+        var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+        if (user == null) return NotFound("User not found");
+
+        var roles = User.FindAll(ClaimTypes.Role).Select(x => x.Value).ToList();
+        return Ok(new UserDto
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Roles = roles
+        });
     }
 
     [HttpPost("register")]
@@ -56,7 +75,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
+    public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto dto)
     {
         var user = await _userManager.FindByEmailAsync(dto.Email);
         if (user == null) return Unauthorized("Either email or password is invalid");
@@ -66,7 +85,29 @@ public class AccountController : ControllerBase
         var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
         if (!result.Succeeded) return Unauthorized("Either email or password is invalid");
 
-        return Ok(JsonSerializer.Serialize(await _tokenService.GenerateTokenAsync(user)));
+        await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(await _cookieService.GetClaimsIdentity(user)),
+            new AuthenticationProperties
+            {
+                IsPersistent = true,
+                AllowRefresh = true,
+                ExpiresUtc = DateTime.UtcNow.AddDays(7)
+            });
+
+        return Ok(new UserDto
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Roles = (List<string>)await _userManager.GetRolesAsync(user)
+        });
+    }
+
+    [HttpPost("logout")]
+    public async Task<ActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return Ok();
     }
 
     [HttpGet("confirm-email")]

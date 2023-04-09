@@ -6,5 +6,4 @@ import {Component} from '@angular/core';
   styleUrls: ['./email-confirmed.component.scss']
 })
 export class EmailConfirmedComponent {
-
 }

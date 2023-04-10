@@ -2,16 +2,15 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {BehaviorSubject, map} from "rxjs";
+import {map, ReplaySubject} from "rxjs";
 import {User} from "../../models/user";
-import jwtDecode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
   baseUrl = environment.apiUrl;
-  private currentUserSource = new BehaviorSubject<User | null>(null);
+  private currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
@@ -20,7 +19,13 @@ export class AccountService {
   login(values: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', values, {withCredentials: true}).pipe(
       map(user => {
-        this.currentUserSource.next(user);
+        if (user) {
+          this.currentUserSource.next(user);
+          return user;
+        } else {
+          this.currentUserSource.next(null);
+          return null;
+        }
       })
     )
   }
@@ -28,7 +33,11 @@ export class AccountService {
   loadCurrentUser() {
     return this.http.get<User>(this.baseUrl + 'account', {withCredentials: true}).pipe(
       map(user => {
-        this.currentUserSource.next(user);
+        if (user) {
+          this.currentUserSource.next(user);
+        } else {
+          this.currentUserSource.next(null);
+        }
       })
     )
   }
@@ -43,9 +52,5 @@ export class AccountService {
         this.currentUserSource.next(null);
       })
     )
-  }
-
-  private DecodeToken(token: string) {
-    return jwtDecode(token);
   }
 }

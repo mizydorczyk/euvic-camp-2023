@@ -19,7 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
           if (error.status === 401) {
             if (request.url !== environment.apiUrl + 'account') {
-              this.toastr.error('You are unauthorized');
+              this.toastr.error(error.error);
             }
           }
           if (error.status === 404) {

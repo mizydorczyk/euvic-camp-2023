@@ -1,33 +1,12 @@
-<div *ngIf="passwordControl && emailControl" class="row justify-content-center mt-5">
+<div class="row justify-content-center mt-5">
   <div class="col-lg-3 col-md-4">
     <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
-      <div class="form-floating mb-3">
-        <input
-          [formControl]="emailControl"
-          [ngClass]="(emailControl.touched) ? emailControl.invalid ? 'is-invalid' : 'is-valid' : null"
-          class="form-control"
-          placeholder="Email"
-          type="text"
-        >
-        <label for="floatingInput">Email</label>
-        <div *ngIf="emailControl.errors?.['required']" class="invalid-feedback">Please enter your email</div>
-        <div *ngIf="emailControl.errors?.['email']" class="invalid-feedback">Invalid email address</div>
+      <app-user-form [form]="registerForm"></app-user-form>
+      <div *ngIf="registerAsAdmin" class="d-grid">
+        <button [disabled]="registerForm.invalid" class="btn btn-lg btn-primary mt-3" type="submit">Register new user
+        </button>
       </div>
-      <div class="form-floating mb-3">
-        <input
-          [formControl]="passwordControl"
-          [ngClass]="(passwordControl.touched) ? passwordControl.invalid ? 'is-invalid' : 'is-valid' : null"
-          class="form-control"
-          placeholder="Password"
-          type="password"
-        >
-        <label for="floatingInput">Password</label>
-        <div *ngIf="passwordControl.errors?.['required']" class="invalid-feedback">Please enter a password</div>
-        <div *ngIf="passwordControl.errors?.['pattern']" class="invalid-feedback">
-          Password must consist of at least one uppercase, one lowercase, one digit and be at least 8 characters long
-        </div>
-      </div>
-      <div class="d-grid">
+      <div *ngIf="!registerAsAdmin" class="d-grid">
         <button [disabled]="registerForm.invalid" class="btn btn-lg btn-primary mt-3" type="submit">Sign up</button>
       </div>
     </form>

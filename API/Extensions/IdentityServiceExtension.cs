@@ -25,7 +25,7 @@ public static class IdentityServiceExtension
             .AddDefaultTokenProviders()
             .AddTokenProvider<EmailConfirmationTokenProvider<User>>("EmailConfirmation");
 
-        services.Configure<IdentityOptions>(options => { options.Password.RequireNonAlphanumeric = false; });
+        services.Configure<IdentityOptions>(options => { options.Password.RequireNonAlphanumeric = true; });
         services.Configure<IdentityOptions>(options => { options.SignIn.RequireConfirmedEmail = true; });
 
         services.AddScoped<ICookieService, CookieService>();

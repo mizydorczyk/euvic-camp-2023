@@ -1,29 +1,7 @@
-<div *ngIf="passwordControl && emailControl" class="row justify-content-center mt-5">
+<div class="row justify-content-center mt-5">
   <div class="col-lg-3 col-md-4">
     <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-      <div class="form-floating mb-3">
-        <input
-          [formControl]="emailControl"
-          [ngClass]="(emailControl.touched) ? emailControl.invalid ? 'is-invalid' : 'is-valid' : null"
-          class="form-control"
-          placeholder="Email"
-          type="text"
-        >
-        <label for="floatingInput">Email</label>
-        <div *ngIf="emailControl.errors?.['required']" class="invalid-feedback">Please enter your email</div>
-        <div *ngIf="emailControl.errors?.['email']" class="invalid-feedback">Invalid email address</div>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          [formControl]="passwordControl"
-          [ngClass]="(passwordControl.touched) ? passwordControl.invalid ? 'is-invalid' : 'is-valid' : null"
-          class="form-control"
-          placeholder="Password"
-          type="password"
-        >
-        <label for="floatingInput">Password</label>
-        <div *ngIf="passwordControl.errors?.['required']" class="invalid-feedback">Please enter your password</div>
-      </div>
+      <app-user-form [form]="loginForm"></app-user-form>
       <div class="d-grid my-0">
         <p class="my-0 text-muted small">Don't have an account? <a routerLink="/sign-up">Register now</a></p>
       </div>

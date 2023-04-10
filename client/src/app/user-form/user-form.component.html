@@ -1,0 +1,28 @@
+<div class="form-floating mb-3">
+  <input
+    [formControl]="this.form.controls['email']"
+    [ngClass]="(this.form.controls['email'].touched) ? this.form.controls['email'].invalid ? 'is-invalid' : 'is-valid' : null"
+    class="form-control"
+    placeholder="Email"
+    type="text"
+  >
+  <label for="floatingInput">Email</label>
+  <div *ngIf="this.form.controls['email'].errors?.['required']" class="invalid-feedback">Please enter your email</div>
+  <div *ngIf="this.form.controls['email'].errors?.['email']" class="invalid-feedback">Invalid email address</div>
+</div>
+<div class="form-floating mb-3">
+  <input
+    [formControl]="this.form.controls['password']"
+    [ngClass]="(this.form.controls['password'].touched) ? this.form.controls['password'].invalid ? 'is-invalid' : 'is-valid' : null"
+    class="form-control"
+    placeholder="Password"
+    type="password"
+  >
+  <label for="floatingInput">Password</label>
+  <div *ngIf="this.form.controls['password'].errors?.['required']" class="invalid-feedback">Please enter your password
+  </div>
+  <div *ngIf="this.form.controls['password'].errors?.['pattern']" class="invalid-feedback">
+    Password must consist of at least one uppercase, one lowercase, one digit, one non-alphanumerical and be at least 8
+    characters long
+  </div>
+</div>

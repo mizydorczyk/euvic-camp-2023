@@ -1,0 +1,10 @@
+.btn-add, .btn-add:focus, .btn-edit, .btn-edit:focus {
+  padding: 5px 15px;
+  border: 1px solid lightgray;
+  color: rgba(38, 56, 80, 255);
+  background: transparent;
+
+  &:hover, &.active {
+    background-color: whitesmoke;
+  }
+}

@@ -12,10 +12,8 @@ import {ToastrService} from "ngx-toastr";
 export class SignInComponent {
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required)
-  })
-  emailControl = this.loginForm.controls['email'];
-  passwordControl = this.loginForm.controls['password'];
+    password: new FormControl('', [Validators.required])
+  });
 
   constructor(private accountService: AccountService, private router: Router, private toastr: ToastrService) {
   }

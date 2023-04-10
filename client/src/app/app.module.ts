@@ -14,6 +14,10 @@ import {EmailConfirmedComponent} from './email-confirmed/email-confirmed.compone
 import {ToastrModule} from "ngx-toastr";
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
 import {BroadcastListComponent} from "./broadcast-list/broadcast-list.component";
+import {IsInRoleDirective} from './directives/is-in-role.directive';
+import {UsersComponent} from './users/users.component';
+import {UserFormComponent} from './user-form/user-form.component';
+import {UpdateUserComponent} from './update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import {BroadcastListComponent} from "./broadcast-list/broadcast-list.component"
     SignInComponent,
     SignUpComponent,
     EmailConfirmedComponent,
-    BroadcastListComponent
+    BroadcastListComponent,
+    IsInRoleDirective,
+    UsersComponent,
+    UserFormComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,

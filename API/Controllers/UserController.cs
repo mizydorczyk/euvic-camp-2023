@@ -22,12 +22,20 @@ public class UserController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<User>>> GetAllUsers()
     {
-        return Ok(await _userManager.Users.ToListAsync());
+        return Ok(await _userManager.Users.Select(user => new UserDto
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Roles = user.UserRoles.Where(x => x.User == user).Select(x => x.Role.Name).ToList()
+        }).ToListAsync());
     }
 
     [HttpPost]
     public async Task<ActionResult> RegisterAsAdmin([FromBody] RegisterDto dto)
     {
+        if (await _userManager.Users.FirstOrDefaultAsync(x => x.NormalizedEmail == dto.Email.Trim().ToUpper()) != null)
+            return BadRequest("Email is already in use");
+
         var user = new User
         {
             UserName = dto.Email[..dto.Email.IndexOf('@')],
@@ -42,7 +50,12 @@ public class UserController : ControllerBase
         };
         if (!results.All(x => x.Succeeded)) return BadRequest("Problem registering user");
 
-        return Ok();
+        return Ok(new UserDto
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Roles = (List<string>)await _userManager.GetRolesAsync(user)
+        });
     }
 
     [HttpDelete("{email}")]
@@ -52,7 +65,7 @@ public class UserController : ControllerBase
         if (user == null) return BadRequest("User does not exist");
 
         var result = await _userManager.DeleteAsync(user);
-        if (result.Succeeded) return Ok();
+        if (result.Succeeded) return NoContent();
 
         return BadRequest("Problem deleting user");
     }
@@ -72,7 +85,13 @@ public class UserController : ControllerBase
         user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, dto.Password);
 
         var result = await _userManager.UpdateAsync(user);
-        if (result.Succeeded) return Ok();
+        if (result.Succeeded)
+            return Ok(new UserDto
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                Roles = (List<string>)await _userManager.GetRolesAsync(user)
+            });
 
         return BadRequest("Problem updating user");
     }

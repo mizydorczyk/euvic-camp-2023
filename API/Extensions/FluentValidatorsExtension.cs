@@ -2,6 +2,7 @@ using API.Models;
 using API.Models.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Sieve.Models;
 
 namespace API.Extensions;
 
@@ -14,6 +15,7 @@ public static class ValidatorsExtension
 
         services.AddTransient<IValidator<LoginDto>, LoginDtoValidator>();
         services.AddTransient<IValidator<RegisterDto>, RegisterDtoValidator>();
+        services.AddTransient<IValidator<SieveModel>, SieveModelValidator>();
 
         return services;
     }

@@ -20,7 +20,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<User>>> GetAllUsers()
+    public async Task<ActionResult<List<User>>> GetAllUsers()
     {
         return Ok(await _userManager.Users.Select(user => new UserDto
         {

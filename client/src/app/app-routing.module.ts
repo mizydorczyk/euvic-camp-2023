@@ -6,15 +6,15 @@ import {PieceDetailsComponent} from "./piece-details/piece-details.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {EmailConfirmedComponent} from "./email-confirmed/email-confirmed.component";
-import {AdminGuard} from "./guards/admin.guard";
-import {AuthGuard} from "./guards/auth.guard";
+import {AdminGuard} from "./shared/guards/admin.guard";
+import {AuthGuard} from "./shared/guards/auth.guard";
 import {UsersComponent} from "./users/users.component";
 import {UpdateUserComponent} from "./update-user/update-user.component";
 
 const routes: Routes = [
   {
     path: '', runGuardsAndResolvers: 'always', children: [
-      {path: 'ranking', component: RankingComponent, canActivate: [AuthGuard],},
+      {path: 'ranking', component: RankingComponent, canActivate: [AuthGuard]},
       {path: 'broadcast-list', component: BroadcastListComponent, canActivate: [AuthGuard]},
       {path: 'broadcast-list/:id', component: PieceDetailsComponent, canActivate: [AuthGuard]},
       {path: 'sign-in', component: SignInComponent},

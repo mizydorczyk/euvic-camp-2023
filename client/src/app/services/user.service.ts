@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {BehaviorSubject} from "rxjs";
 import {User} from "../../models/user";
 
 @Injectable({
@@ -9,8 +8,6 @@ import {User} from "../../models/user";
 })
 export class UserService {
   baseUrl = environment.apiUrl;
-  private usersSource = new BehaviorSubject<User[] | null>(null);
-  usersSource$ = this.usersSource.asObservable();
 
   constructor(private http: HttpClient) {
   }

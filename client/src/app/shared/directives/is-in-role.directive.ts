@@ -1,7 +1,7 @@
 import {Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
 import {Subscription} from "rxjs";
-import {AccountService} from "../services/account.service";
-import {User} from "../../models/user";
+import {AccountService} from "../../services/account.service";
+import {User} from "../../../models/user";
 
 @Directive({
   selector: '[isInRole]'

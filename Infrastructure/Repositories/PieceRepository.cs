@@ -14,11 +14,13 @@ public class PieceRepository : IPieceRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IReadOnlyList<Piece>> GetALlAsync()
+    public async Task<List<Piece>> ListTop100Async()
     {
         var pieces = await _dbContext.Pieces
             .Include(x => x.Artist)
             .Include(x => x.ProgrammeItems)
+            .OrderByDescending(x => x.ProgrammeItems.Sum(y => y.Views))
+            .Take(100)
             .ToListAsync();
 
         return pieces;

@@ -1,1 +1,14 @@
-<p>ranking works!</p>
+<ng-container *ngFor="let piece of pieces; let i=index">
+  <div class="card mb-3" routerLink="/broadcast-list/{{piece.id}}">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{i + 1}}. {{piece.title}} - {{piece.artist}}</h5><h5
+          class="text-muted">{{piece.version}}</h5>
+          <p class="card-text">{{piece.views | numberSuffix}} views</p>
+          <p class="card-text"><small class="text-muted">Duration: {{piece.duration | duration}}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

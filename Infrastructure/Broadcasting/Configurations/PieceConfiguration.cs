@@ -12,7 +12,6 @@ public class PieceConfiguration : IEntityTypeConfiguration<Piece>
         builder.Property(x => x.ReleaseDate).IsRequired().HasColumnType("date");
         builder.Property(x => x.Duration).IsRequired().HasColumnType("interval");
         builder.Property(x => x.Version).HasMaxLength(32);
-        builder.Property(x => x.PictureUrl).HasMaxLength(64);
         builder.Property(x => x.ArtistId).IsRequired();
 
         builder.HasOne(x => x.Artist)

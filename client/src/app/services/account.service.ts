@@ -35,8 +35,10 @@ export class AccountService {
       map(user => {
         if (user) {
           this.currentUserSource.next(user);
+          return true;
         } else {
           this.currentUserSource.next(null);
+          return false;
         }
       })
     )

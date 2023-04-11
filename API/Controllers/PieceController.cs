@@ -1,5 +1,4 @@
 using API.Models;
-using AutoMapper;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,30 +7,59 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "User")]
+[Authorize(Roles = "User, Admin")]
 public class PieceController : ControllerBase
 {
-    private readonly IMapper _mapper;
     private readonly IPieceRepository _pieceRepository;
 
-    public PieceController(IPieceRepository pieceRepository, IMapper mapper)
+    public PieceController(IPieceRepository pieceRepository)
     {
         _pieceRepository = pieceRepository;
-        _mapper = mapper;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<PieceDto>>> GetPieces()
+    [HttpGet("top100")]
+    public async Task<ActionResult<List<PieceDto>>> GetTop100Pieces()
     {
-        return Ok(_mapper.Map<List<PieceDto>>(await _pieceRepository.GetALlAsync()));
+        var pieces = await _pieceRepository.ListTop100Async();
+
+        return Ok(pieces.Select(piece => new PieceDto
+        {
+            Id = piece.Id,
+            Title = piece.Title,
+            ReleaseDate = piece.ReleaseDate,
+            Views = piece.ProgrammeItems.Sum(x => x.Views),
+            Duration = piece.Duration,
+            Version = piece.Version,
+            Artist = piece.Artist.KnownAs
+        }));
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<PieceWithProgrammeItemsDto>> GetPieceById([FromRoute] int id)
+    public async Task<ActionResult<PieceDto>> GetPiece([FromRoute] int id)
     {
         var piece = await _pieceRepository.GetByIdAsync(id);
         if (piece == null) return NotFound("Piece not found");
 
-        return Ok(_mapper.Map<PieceWithProgrammeItemsDto>(piece));
+        return Ok(new PieceDto
+        {
+            Id = piece.Id,
+            Title = piece.Title,
+            ReleaseDate = piece.ReleaseDate,
+            Views = piece.ProgrammeItems.Sum(x => x.Views),
+            Duration = piece.Duration,
+            Version = piece.Version,
+            Artist = piece.Artist.KnownAs,
+            ProgrammeItemHeaders = piece.ProgrammeItems.Select(programmeItem => new ProgrammeItemHeaderDto
+            {
+                PlaybackDate = programmeItem.PlaybackDate,
+                BroadcastingDuration = programmeItem.BroadcastingDuration,
+                RadioChannel = new RadioChannelDto
+                {
+                    Name = programmeItem.RadioChannel.Name,
+                    Frequency = programmeItem.RadioChannel.Frequency
+                },
+                Views = programmeItem.Views
+            })
+        });
     }
 }

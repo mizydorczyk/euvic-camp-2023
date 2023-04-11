@@ -1,8 +1,10 @@
+using API.Helpers;
 using API.Middlewares;
 using Core.Interfaces;
 using Infrastructure.Broadcasting;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Sieve.Services;
 using StackExchange.Redis;
 
 namespace API.Extensions;
@@ -23,12 +25,11 @@ public static class BroadcastingServiceExtension
             return ConnectionMultiplexer.Connect(options);
         });
 
-        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
         services.AddScoped<ErrorHandlingMiddleware>();
         services.AddScoped<RequestTimeMiddleware>();
-        services.AddScoped<IProgrammeItemRepository, ProgrammeItemRepository>();
         services.AddScoped<IPieceRepository, PieceRepository>();
+        services.AddScoped<IProgrammeItemsRepository, ProgrammeItemsRepository>();
+        services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
 
         services.AddCors(options =>
         {

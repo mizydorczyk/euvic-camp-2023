@@ -10,6 +10,5 @@ public class RadioChannelConfiguration : IEntityTypeConfiguration<RadioChannel>
     {
         builder.Property(x => x.Name).IsRequired().HasMaxLength(32);
         builder.Property(x => x.Frequency).IsRequired().HasColumnType("decimal(4, 1)");
-        builder.Property(x => x.PictureUrl).HasMaxLength(64);
     }
 }

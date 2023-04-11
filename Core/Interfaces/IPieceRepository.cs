@@ -4,6 +4,6 @@ namespace Core.Interfaces;
 
 public interface IPieceRepository
 {
-    Task<IReadOnlyList<Piece>> GetALlAsync();
-    Task<Piece?> GetByIdAsync(int id);
+    public Task<List<Piece>> ListTop100Async();
+    public Task<Piece?> GetByIdAsync(int id);
 }

@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -20,6 +20,8 @@ import {UserFormComponent} from './shared/user-form/user-form.component';
 import {UpdateUserComponent} from './update-user/update-user.component';
 import {DurationPipe} from './shared/pipes/duration.pipe';
 import {NumberSuffixPipe} from './shared/pipes/number-suffix.pipe';
+import {NgxSpinnerModule} from "ngx-spinner";
+import {LoadingInterceptor} from "./interceptors/loading.interceptor";
 
 @NgModule({
   declarations: [
@@ -48,11 +50,16 @@ import {NumberSuffixPipe} from './shared/pipes/number-suffix.pipe';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
     }),
+    NgxSpinnerModule.forRoot({type: 'line-scale'})
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class AppModule {
 }

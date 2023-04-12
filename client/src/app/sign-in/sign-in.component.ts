@@ -10,6 +10,7 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])

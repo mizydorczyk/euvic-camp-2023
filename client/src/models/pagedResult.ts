@@ -1,4 +1,5 @@
-export interface PaginationHeader {
+export interface PagedResult<T> {
+  items: T[]
   totalPages: number
   itemsFrom: number
   itemsTo: number

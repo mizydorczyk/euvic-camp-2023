@@ -19,7 +19,7 @@ public class ProgrammeItemsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResult<ProgrammeItemDto>>> GetAllProgrammeItems([FromBody] SieveModel query)
+    public async Task<ActionResult<PagedResult<ProgrammeItemDto>>> GetAllProgrammeItems([FromQuery] SieveModel query)
     {
         var result = await _programmeItemsRepository.ListAsync(query);
         var programmeItems = result.Items.Select(programmeItem => new ProgrammeItemDto
@@ -42,7 +42,7 @@ public class ProgrammeItemsController : ControllerBase
             },
             Views = programmeItem.Views
         }).ToList();
-        
+
         return Ok(new PagedResult<ProgrammeItemDto>(programmeItems, result.TotalCount, query.PageSize.Value, query.Page.Value));
     }
 }

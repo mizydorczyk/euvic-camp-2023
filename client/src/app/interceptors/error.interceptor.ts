@@ -19,17 +19,16 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
           if (error.status === 401) {
             if (request.url !== environment.apiUrl + 'account') {
-              this.toastr.error(error.error);
+              this.toastr.error('Unauthorized');
             }
           }
           if (error.status === 404) {
             this.toastr.error('Thing you are looking for isn\'t here');
-            this.router.navigateByUrl('');
+            this.router.navigateByUrl('/ranking');
           }
-          ;
           if (error.status === 500) {
-            this.toastr.error('Internal server error. Something went wrong')
-            this.router.navigateByUrl('');
+            this.toastr.error('Internal server error. Something went wrong');
+            this.router.navigateByUrl('/ranking');
           }
         }
         return throwError(() => new Error(error.message));

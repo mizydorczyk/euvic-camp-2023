@@ -52,6 +52,7 @@ public static class IdentityServiceExtension
                 }
             };
             options.ExpireTimeSpan = TimeSpan.FromDays(3);
+            options.Cookie.SameSite = SameSiteMode.None;
         });
 
         services.AddAuthorization();

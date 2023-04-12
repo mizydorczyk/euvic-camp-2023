@@ -28,10 +28,10 @@ export class SignUpComponent {
   }
 
   onSubmit() {
-    this.registerForm.reset();
     if (this.registerAsAdmin) {
       return this.userService.registerUser(this.registerForm.value).subscribe({
         next: () => {
+          this.registerForm.reset();
           this.toastr.success('User successfully created.');
           this.router.navigateByUrl('/users');
         },
@@ -39,6 +39,7 @@ export class SignUpComponent {
     } else {
       return this.accountService.register(this.registerForm.value).subscribe({
         next: () => {
+          this.registerForm.reset();
           this.toastr.success('User successfully created. Please confirm your email in order to sign in');
           this.router.navigateByUrl('/sign-in');
         },

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "./services/account.service";
-import {take} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -12,6 +11,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.accountService.loadCurrentUser().pipe(take(1)).subscribe();
+    this.accountService.loadCurrentUser();
   }
 }

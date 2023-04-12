@@ -1,1 +1,11 @@
-<p>broadcast-list works!</p>
+<ng-container *ngFor="let item of programmeItems;">
+  <div class="card mb-3" routerLink="/broadcast-list/{{item.piece.id}}">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{item.piece.title}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

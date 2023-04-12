@@ -1,16 +1,19 @@
-<ul class="list-group">
-  <li *ngFor="let user of users"
-      class="list-group-item d-flex align-items-center justify-content-between">
-    <div>
-      <p class="py-auto my-auto mx-2">{{user.email}}</p>
-      <span *ngFor="let role of user.roles" class="badge bg-primary mx-1">{{role}}</span>
-    </div>
-    <div>
-      <button (click)="update(user)" class="btn btn-primary mx-1 btn-edit">Edit<i class="ms-2 fa fa-edit"></i></button>
-      <button (click)="delete(user)" class="btn btn-danger mx-1">Delete<i class="ms-2 fa fa-trash"></i></button>
-    </div>
-  </li>
-</ul>
-<div class="d-flex justify-content-end mt-2">
-  <button (click)="register()" class="btn btn-primary btn-add">Add<i class="ms-2 fa fa-plus"></i></button>
-</div>
+<ng-container *ngIf="users.length > 0">
+  <ul class="list-group">
+    <li *ngFor="let user of users"
+        class="list-group-item d-flex align-items-center justify-content-between">
+      <div>
+        <p class="py-auto my-auto mx-2">{{user.email}}</p>
+        <span *ngFor="let role of user.roles" class="badge bg-primary mx-1">{{role}}</span>
+      </div>
+      <div>
+        <button (click)="update(user)" class="btn btn-primary mx-1 btn-edit">Edit<i class="ms-2 fa fa-edit"></i>
+        </button>
+        <button (click)="delete(user)" class="btn btn-danger mx-1">Delete<i class="ms-2 fa fa-trash"></i></button>
+      </div>
+    </li>
+  </ul>
+  <div class="d-flex justify-content-end mt-2">
+    <button (click)="register()" class="btn btn-primary btn-add">Add<i class="ms-2 fa fa-plus"></i></button>
+  </div>
+</ng-container>

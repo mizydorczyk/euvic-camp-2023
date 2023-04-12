@@ -12,20 +12,17 @@ import {UsersComponent} from "./users/users.component";
 import {UpdateUserComponent} from "./update-user/update-user.component";
 
 const routes: Routes = [
-  {
-    path: '', runGuardsAndResolvers: 'always', children: [
-      {path: 'ranking', component: RankingComponent, canActivate: [AuthGuard]},
-      {path: 'broadcast-list', component: BroadcastListComponent, canActivate: [AuthGuard]},
-      {path: 'broadcast-list/:id', component: PieceDetailsComponent, canActivate: [AuthGuard]},
-      {path: 'sign-in', component: SignInComponent},
-      {path: 'sign-up', component: SignUpComponent},
-      {path: 'register-new-user', component: SignUpComponent, canActivate: [AdminGuard]},
-      {path: 'update-user', component: UpdateUserComponent, canActivate: [AdminGuard]},
-      {path: 'email-confirmed', component: EmailConfirmedComponent},
-      {path: 'users', component: UsersComponent, canActivate: [AdminGuard]},
-    ],
-  },
-  {path: '**', redirectTo: 'ranking', pathMatch: 'full'}
+  {path: 'ranking', component: RankingComponent, canActivate: [AuthGuard]},
+  {path: 'broadcast-list', component: BroadcastListComponent, canActivate: [AuthGuard]},
+  {path: 'broadcast-list/:id', component: PieceDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'sign-in', component: SignInComponent},
+  {path: 'sign-up', component: SignUpComponent},
+  {path: 'register-new-user', component: SignUpComponent, canActivate: [AdminGuard]},
+  {path: 'update-user', component: UpdateUserComponent, canActivate: [AdminGuard]},
+  {path: 'email-confirmed', component: EmailConfirmedComponent},
+  {path: 'users', component: UsersComponent, canActivate: [AdminGuard]},
+  {path: '', redirectTo: 'sign-in', pathMatch: 'full'},
+  {path: '**', redirectTo: 'sign-in'}
 ];
 
 @NgModule({

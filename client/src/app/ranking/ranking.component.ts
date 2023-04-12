@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RankingService} from "../services/ranking.service";
+import {take} from "rxjs";
 import {Piece} from "../../models/piece";
-import {locale} from "moment";
 
 @Component({
   selector: 'app-ranking',
@@ -9,19 +9,16 @@ import {locale} from "moment";
   styleUrls: ['./ranking.component.scss']
 })
 export class RankingComponent implements OnInit {
-  pieces: Piece[] = [];
-  protected readonly locale = locale;
+  pieces: Piece[] = []
 
   constructor(private rankingService: RankingService) {
   }
 
   ngOnInit(): void {
-    this.loadRanking();
-  }
-
-  loadRanking() {
-    this.rankingService.getRanking().subscribe({
-      next: pieces => this.pieces = pieces
-    })
+    this.rankingService.getRanking().pipe(take(1)).subscribe({
+      next: pieces => {
+        this.pieces = pieces;
+      }
+    });
   }
 }

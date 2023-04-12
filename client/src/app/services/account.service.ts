@@ -31,17 +31,10 @@ export class AccountService {
   }
 
   loadCurrentUser() {
-    return this.http.get<User>(this.baseUrl + 'account', {withCredentials: true}).pipe(
-      map(user => {
-        if (user) {
-          this.currentUserSource.next(user);
-          return true;
-        } else {
-          this.currentUserSource.next(null);
-          return false;
-        }
-      })
-    )
+    return this.http.get<User>(this.baseUrl + 'account', {withCredentials: true}).subscribe({
+      next: user => this.currentUserSource.next(user),
+      error: () => this.currentUserSource.next(null)
+    })
   }
 
   register(values: any) {

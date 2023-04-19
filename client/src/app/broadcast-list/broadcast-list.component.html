@@ -7,25 +7,30 @@
     </div>
   </div>
 
-  <div class="mb-3 d-flex justify-content-start">
-    <div class="btn-group col-md-2 p-0" dropdown>
-      <button aria-controls="dropdown-animated" class="fw-bold btn dropdown-button btn-primary dropdown-toggle"
-              dropdownToggle
-              id='dropdown-button'
-              type="button">
-        <p class="d-inline">{{programmeItemsService.currentSortingOption.name}}</p>
-        <span class="ms-2 caret"></span>
-      </button>
-      <ul *dropdownMenu aria-labelledby="button-animated" class="dropdown-menu dropdown-menu-left"
-          id="dropdown-animated"
-          role="menu">
-        <li (click)="onSortSelected(option)"
-            *ngFor="let option of sortingOptions"
-            [value]="option.value"
-            class="menuitem">
-          <a class="dropdown-item">{{option.name}}</a>
-        </li>
-      </ul>
+  <div class="mb-3 row">
+    <div class="col-md-9 d-flex justify-content-start mb-1">
+      <div class="btn-group p-0" dropdown>
+        <button aria-controls="dropdown-animated" class="fw-bold btn dropdown-button btn-primary dropdown-toggle"
+                dropdownToggle
+                id='dropdown-button'
+                type="button">
+          <p class="d-inline">{{programmeItemsService.currentSortingOption.name}}</p>
+          <span class="ms-2 caret"></span>
+        </button>
+        <ul *dropdownMenu aria-labelledby="button-animated" class="dropdown-menu dropdown-menu-left"
+            id="dropdown-animated"
+            role="menu">
+          <li (click)="onSortSelected(option)"
+              *ngFor="let option of sortingOptions"
+              [value]="option.value"
+              class="menuitem">
+            <a class="dropdown-item">{{option.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-3 d-flex justify-content-md-end justify-content-start">
+      <button (click)="downloadProgrammeItems()" class="fw-bold btn btn-outline-success" type="button">Download</button>
     </div>
   </div>
 

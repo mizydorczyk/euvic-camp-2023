@@ -39,4 +39,12 @@ export class ProgrammeItemService {
         }
       ));
   }
+
+  downloadProgrammeItems(params: QueryParams) {
+    return this.http.get(this.baseUrl + 'programmeItems/export', {
+      params: params as any,
+      withCredentials: true,
+      responseType: "blob"
+    });
+  }
 }

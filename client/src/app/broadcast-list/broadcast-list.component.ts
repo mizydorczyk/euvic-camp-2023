@@ -6,6 +6,7 @@ import {QueryParams} from "../../models/queryParams";
 import {BsDropdownConfig} from "ngx-bootstrap/dropdown";
 import {SortingOption} from "../../models/sortingOption";
 import {PagedResult} from "../../models/pagedResult";
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-broadcast-list',
@@ -67,6 +68,15 @@ export class BroadcastListComponent implements OnInit {
         behavior: 'smooth'
       });
     }
+  }
+
+  downloadProgrammeItems() {
+    this.programmeItemsService.downloadProgrammeItems(this.params).pipe(take(1)).subscribe({
+      next: data => {
+        let blob = new Blob([data], {type: "application/vnd.ms-excel"});
+        saveAs(blob, "broadcast-list-export.xlsx");
+      }
+    });
   }
 
   search() {

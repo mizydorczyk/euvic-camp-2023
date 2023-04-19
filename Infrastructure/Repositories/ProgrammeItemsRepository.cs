@@ -25,8 +25,8 @@ public class ProgrammeItemsRepository : IProgrammeItemsRepository
             .Include(x => x.Piece).ThenInclude(x => x.Artist)
             .AsQueryable();
 
-        var programmeItemsToReturn = await _sieveProcessor.Apply(query, programmeItems, applyFiltering: false).ToListAsync();
-        var totalCount = await _sieveProcessor.Apply(query, programmeItems, applyFiltering: false, applyPagination: false).CountAsync();
+        var programmeItemsToReturn = await _sieveProcessor.Apply(query, programmeItems).ToListAsync();
+        var totalCount = await _sieveProcessor.Apply(query, programmeItems, applyPagination: false).CountAsync();
 
         return (programmeItemsToReturn, totalCount);
     }

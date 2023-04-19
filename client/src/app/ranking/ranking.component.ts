@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RankingService} from "../services/ranking.service";
+import {PieceService} from "../services/piece.service";
 import {take} from "rxjs";
 import {Piece} from "../../models/piece";
 
@@ -11,11 +11,11 @@ import {Piece} from "../../models/piece";
 export class RankingComponent implements OnInit {
   pieces: Piece[] = []
 
-  constructor(private rankingService: RankingService) {
+  constructor(private pieceService: PieceService) {
   }
 
   ngOnInit(): void {
-    this.rankingService.getRanking().pipe(take(1)).subscribe({
+    this.pieceService.getRanking().pipe(take(1)).subscribe({
       next: pieces => {
         this.pieces = pieces;
       }

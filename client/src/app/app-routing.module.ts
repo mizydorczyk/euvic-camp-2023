@@ -10,11 +10,17 @@ import {AdminGuard} from "./shared/guards/admin.guard";
 import {AuthGuard} from "./shared/guards/auth.guard";
 import {UsersComponent} from "./users/users.component";
 import {UpdateUserComponent} from "./update-user/update-user.component";
+import {PieceResolver} from "./shared/resolvers/piece.resolver";
 
 const routes: Routes = [
   {path: 'ranking', component: RankingComponent, canActivate: [AuthGuard]},
   {path: 'broadcast-list', component: BroadcastListComponent, canActivate: [AuthGuard]},
-  {path: 'broadcast-list/:id', component: PieceDetailsComponent, canActivate: [AuthGuard]},
+  {
+    path: 'broadcast-list/:id',
+    component: PieceDetailsComponent,
+    canActivate: [AuthGuard],
+    resolve: {piece: PieceResolver}
+  },
   {path: 'sign-in', component: SignInComponent},
   {path: 'sign-up', component: SignUpComponent},
   {path: 'register-new-user', component: SignUpComponent, canActivate: [AdminGuard]},

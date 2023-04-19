@@ -1,3 +1,4 @@
+using API.Helpers;
 using API.Models;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,7 @@ public class PieceController : ControllerBase
         _pieceRepository = pieceRepository;
     }
 
+    [Cache(300)]
     [HttpGet("top100")]
     public async Task<ActionResult<List<PieceDto>>> GetTop100Pieces()
     {
@@ -34,6 +36,7 @@ public class PieceController : ControllerBase
         }));
     }
 
+    [Cache(300)]
     [HttpGet("{id:int}")]
     public async Task<ActionResult<PieceDto>> GetPiece([FromRoute] int id)
     {
@@ -49,7 +52,7 @@ public class PieceController : ControllerBase
             Duration = piece.Duration,
             Version = piece.Version,
             Artist = piece.Artist.KnownAs,
-            ProgrammeItemHeaders = piece.ProgrammeItems.Select(programmeItem => new ProgrammeItemHeaderDto
+            ProgrammeItemHeaders = piece.ProgrammeItems.OrderBy(x => x.PlaybackDate).Select(programmeItem => new ProgrammeItemHeaderDto
             {
                 PlaybackDate = programmeItem.PlaybackDate,
                 BroadcastingDuration = programmeItem.BroadcastingDuration,

@@ -1,1 +1,42 @@
-<p>piece-details works!</p>
+<div (window:resize)="onResize()" *ngIf="piece" class="container">
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title fw-bold">{{piece.title}} - {{piece.artist}}</h5>
+      <p *ngIf="piece.version" class="card-text mb-0"><small class="text-muted">Version: {{piece.version}}</small></p>
+      <p class="card-text mb-0"><small class="text-muted">Release
+        date: {{piece.releaseDate | date:'longDate':'+0'}}</small></p>
+      <p class="card-text mb-0"><small class="text-muted">Duration: {{piece.duration | duration}}</small></p>
+      <p class="card-text mb-0"><small class="text-muted">{{piece.views | numberSuffix}} views</small></p>
+      <ul *ngIf="piece.programmeItemHeaders"
+          [ngClass]="(piece.programmeItemHeaders.length >= 6)? 'list-group-scroll' : ''"
+          class="list-group mt-3">
+        <li *ngFor="let item of piece.programmeItemHeaders" class="list-group-item">
+          <p class="mb-0 fw-bold">{{item.radioChannel.name}} - {{item.radioChannel.frequency}} Mhz</p>
+          <p class="mb-0"><small class="text-muted">Broadcasting
+            duration: {{item.broadcastingDuration | duration}}</small></p>
+          <p class="mb-0"><small class="text-muted">{{item.views | numberSuffix}} views
+            on {{item.playbackDate | date:'medium':'+0'}}</small></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-body stats">
+      <div class="col-md-3">
+        <canvas #pieChart [data]="pieChartData" [options]="pieChartOptions //noinspection ValidateTypes"
+                [plugins]="pieChartPlugins"
+                [type]="pieChartType //noinspection ValidateTypes"
+                baseChart
+                class="chart m-0 px-1">
+        </canvas>
+      </div>
+      <div class="col-md-9 m-0">
+        <canvas #lineChart [data]="lineChartData" [options]="lineChartOptions"
+                [type]="lineChartType"
+                baseChart
+                class="chart m-0 px-1">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>

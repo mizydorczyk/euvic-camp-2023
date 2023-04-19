@@ -4,26 +4,38 @@ import {HttpClient} from "@angular/common/http";
 import {ProgrammeItem} from "../../models/programmeItem";
 import {map, of} from "rxjs";
 import {PagedResult} from "../../models/pagedResult";
+import {QueryParams} from "../../models/queryParams";
+import {SortingOption} from "../../models/sortingOption";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProgrammeItemService {
   baseUrl = environment.apiUrl;
-  programmeItems: ProgrammeItem[] = [];
+  programmeItemsResult?: PagedResult<ProgrammeItem>;
+  programmeItemsCache = new Map<string, PagedResult<ProgrammeItem>>();
+
+  currentSortingOption: SortingOption = {name: 'Title: A-Z', value: 'Title'};
 
   constructor(private http: HttpClient) {
   }
 
-  getProgrammeItems(params: any) {
-    if (this.programmeItems.length > 0) return of(this.programmeItems);
+  getProgrammeItems(params: QueryParams) {
+    if (this.programmeItemsCache.size > 0) {
+      if (this.programmeItemsCache.has(Object.values(params).join('-'))) {
+        this.programmeItemsResult = this.programmeItemsCache.get(Object.values(params).join('-'));
+        if (this.programmeItemsResult) return of(this.programmeItemsResult);
+      }
+    }
+
     return this.http.get<PagedResult<ProgrammeItem>>(this.baseUrl + 'programmeItems', {
-      params: params,
+      params: params as any,
       withCredentials: true
     }).pipe(
       map(result => {
-          this.programmeItems = result.items;
-          return this.programmeItems;
+          this.programmeItemsCache.set(Object.values(params).join('-'), result);
+          this.programmeItemsResult = result;
+          return this.programmeItemsResult;
         }
       ));
   }

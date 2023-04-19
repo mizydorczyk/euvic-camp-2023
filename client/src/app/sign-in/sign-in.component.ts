@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AccountService} from "../services/account.service";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {take} from "rxjs";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-sign-in',
@@ -17,6 +19,11 @@ export class SignInComponent {
   });
 
   constructor(private accountService: AccountService, private router: Router, private toastr: ToastrService) {
+    accountService.currentUser$.pipe(take(1)).subscribe({
+      next: (user: User | null) => {
+        if (user) this.router.navigateByUrl('ranking');
+      }
+    });
   }
 
   onSubmit() {

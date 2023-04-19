@@ -98,5 +98,155 @@
     "Id": 20,
     "RadioChannelId": 1,
     "PieceId": 10
+  },
+  {
+    "Id": 21,
+    "RadioChannelId": 1,
+    "PieceId": 1
+  },
+  {
+    "Id": 22,
+    "RadioChannelId": 1,
+    "PieceId": 2
+  },
+  {
+    "Id": 23,
+    "RadioChannelId": 2,
+    "PieceId": 3
+  },
+  {
+    "Id": 24,
+    "RadioChannelId": 2,
+    "PieceId": 4
+  },
+  {
+    "Id": 25,
+    "RadioChannelId": 2,
+    "PieceId": 5
+  },
+  {
+    "Id": 26,
+    "RadioChannelId": 3,
+    "PieceId": 6
+  },
+  {
+    "Id": 27,
+    "RadioChannelId": 3,
+    "PieceId": 7
+  },
+  {
+    "Id": 28,
+    "RadioChannelId": 3,
+    "PieceId": 8
+  },
+  {
+    "Id": 29,
+    "RadioChannelId": 3,
+    "PieceId": 9
+  },
+  {
+    "Id": 30,
+    "RadioChannelId": 1,
+    "PieceId": 10
+  },
+  {
+    "Id": 31,
+    "RadioChannelId": 2,
+    "PieceId": 1
+  },
+  {
+    "Id": 32,
+    "RadioChannelId": 3,
+    "PieceId": 2
+  },
+  {
+    "Id": 33,
+    "RadioChannelId": 1,
+    "PieceId": 3
+  },
+  {
+    "Id": 34,
+    "RadioChannelId": 2,
+    "PieceId": 4
+  },
+  {
+    "Id": 35,
+    "RadioChannelId": 3,
+    "PieceId": 5
+  },
+  {
+    "Id": 36,
+    "RadioChannelId": 3,
+    "PieceId": 6
+  },
+  {
+    "Id": 37,
+    "RadioChannelId": 2,
+    "PieceId": 7
+  },
+  {
+    "Id": 38,
+    "RadioChannelId": 2,
+    "PieceId": 8
+  },
+  {
+    "Id": 39,
+    "RadioChannelId": 2,
+    "PieceId": 9
+  },
+  {
+    "Id": 40,
+    "RadioChannelId": 1,
+    "PieceId": 10
+  },
+  {
+    "Id": 41,
+    "RadioChannelId": 1,
+    "PieceId": 1
+  },
+  {
+    "Id": 42,
+    "RadioChannelId": 1,
+    "PieceId": 2
+  },
+  {
+    "Id": 43,
+    "RadioChannelId": 2,
+    "PieceId": 3
+  },
+  {
+    "Id": 44,
+    "RadioChannelId": 2,
+    "PieceId": 4
+  },
+  {
+    "Id": 45,
+    "RadioChannelId": 2,
+    "PieceId": 5
+  },
+  {
+    "Id": 46,
+    "RadioChannelId": 3,
+    "PieceId": 6
+  },
+  {
+    "Id": 47,
+    "RadioChannelId": 3,
+    "PieceId": 7
+  },
+  {
+    "Id": 48,
+    "RadioChannelId": 3,
+    "PieceId": 8
+  },
+  {
+    "Id": 49,
+    "RadioChannelId": 3,
+    "PieceId": 9
+  },
+  {
+    "Id": 50,
+    "RadioChannelId": 1,
+    "PieceId": 10
   }
 ]

@@ -9,7 +9,7 @@ import {NavbarComponent} from "./navbar/navbar.component";
 import {PieceDetailsComponent} from './piece-details/piece-details.component';
 import {SignInComponent} from './sign-in/sign-in.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {EmailConfirmedComponent} from './email-confirmed/email-confirmed.component';
 import {ToastrModule} from "ngx-toastr";
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
@@ -22,6 +22,9 @@ import {DurationPipe} from './shared/pipes/duration.pipe';
 import {NumberSuffixPipe} from './shared/pipes/number-suffix.pipe';
 import {NgxSpinnerModule} from "ngx-spinner";
 import {LoadingInterceptor} from "./interceptors/loading.interceptor";
+import {BsDropdownModule} from "ngx-bootstrap/dropdown";
+import {PaginationModule} from "ngx-bootstrap/pagination";
+import {NgChartsModule} from "ng2-charts";
 
 @NgModule({
   declarations: [
@@ -50,7 +53,11 @@ import {LoadingInterceptor} from "./interceptors/loading.interceptor";
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
     }),
-    NgxSpinnerModule.forRoot({type: 'line-scale'})
+    NgxSpinnerModule.forRoot({type: 'line-scale'}),
+    BsDropdownModule.forRoot(),
+    PaginationModule.forRoot(),
+    FormsModule,
+    NgChartsModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

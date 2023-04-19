@@ -1,0 +1,21 @@
+li {
+  border: none;
+}
+
+.list-group-scroll {
+  max-height: 600px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart {
+  max-width: 100%;
+  min-height: 40vh;
+}

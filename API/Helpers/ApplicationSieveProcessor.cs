@@ -15,18 +15,19 @@ public class ApplicationSieveProcessor : SieveProcessor
     {
         mapper.Property<ProgrammeItem>(x => x.PlaybackDate)
             .CanSort();
-        
+
         mapper.Property<ProgrammeItem>(x => x.RadioChannel.Name)
             .HasName("RadioChannelName")
             .CanSort();
-        
+
         mapper.Property<ProgrammeItem>(x => x.BroadcastingDuration)
             .CanSort();
-        
+
         mapper.Property<ProgrammeItem>(x => x.Piece.Title)
             .HasName("Title")
-            .CanSort();
-        
+            .CanSort()
+            .CanFilter();
+
         mapper.Property<ProgrammeItem>(x => x.Piece.Artist.KnownAs)
             .HasName("Artist")
             .CanSort();

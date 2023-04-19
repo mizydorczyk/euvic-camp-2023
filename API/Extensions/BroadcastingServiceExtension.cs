@@ -3,6 +3,7 @@ using API.Middlewares;
 using Core.Interfaces;
 using Infrastructure.Broadcasting;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Sieve.Services;
 using StackExchange.Redis;
@@ -30,6 +31,7 @@ public static class BroadcastingServiceExtension
         services.AddScoped<IPieceRepository, PieceRepository>();
         services.AddScoped<IProgrammeItemsRepository, ProgrammeItemsRepository>();
         services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
+        services.AddSingleton<IResponseCacheService, ResponseCacheService>();
 
         services.AddCors(options =>
         {

@@ -1,3 +1,4 @@
+using API.Helpers;
 using API.Models;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +19,7 @@ public class ProgrammeItemsController : ControllerBase
         _programmeItemsRepository = programmeItemsRepository;
     }
 
+    [Cache(300)]
     [HttpGet]
     public async Task<ActionResult<PagedResult<ProgrammeItemDto>>> GetAllProgrammeItems([FromQuery] SieveModel query)
     {
@@ -35,6 +37,7 @@ public class ProgrammeItemsController : ControllerBase
             {
                 Id = programmeItem.Piece.Id,
                 Title = programmeItem.Piece.Title,
+                ReleaseDate = programmeItem.Piece.ReleaseDate,
                 Duration = programmeItem.Piece.Duration,
                 Version = programmeItem.Piece.Version,
                 Artist = programmeItem.Piece.Artist.KnownAs,

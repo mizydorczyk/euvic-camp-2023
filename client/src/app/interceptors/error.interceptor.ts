@@ -19,11 +19,11 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
           if (error.status === 401) {
             if (request.url !== environment.apiUrl + 'account') {
-              this.toastr.error('Unauthorized');
+              this.toastr.error(error.error);
             }
           }
           if (error.status === 404) {
-            this.toastr.error('Thing you are looking for isn\'t here');
+            this.toastr.error('Thing you are looking for isn\'t there');
             this.router.navigateByUrl('/ranking');
           }
           if (error.status === 500) {

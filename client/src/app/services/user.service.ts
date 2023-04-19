@@ -34,6 +34,6 @@ export class UserService {
   }
 
   registerUser(values: any) {
-    return this.http.post(this.baseUrl + 'account/register', values, {withCredentials: true}).pipe(map(() => this.changed = true));
+    return this.http.post(this.baseUrl + 'user/', values, {withCredentials: true}).pipe(map(() => this.changed = true));
   }
 }

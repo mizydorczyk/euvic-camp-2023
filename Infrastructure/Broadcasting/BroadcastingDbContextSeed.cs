@@ -45,7 +45,7 @@ public static class BroadcastingDbContextSeed
             if (programmeItems == null) throw new Exception("programItems.json is empty or deserialization has gone terribly wrong");
             foreach (var programmeItem in programmeItems)
             {
-                programmeItem.Views = random.Next();
+                programmeItem.Views = random.Next(10000, 1000000);
                 programmeItem.PlaybackDate = DateTime.UtcNow - TimeSpan.FromHours(random.Next(1, 100));
                 var piece = pieces.FirstOrDefault(x => x.Id == programmeItem.PieceId);
                 if (piece == null)

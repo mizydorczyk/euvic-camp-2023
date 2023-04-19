@@ -18,6 +18,8 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment()) app.UseSwaggerDocumentation();
 
+app.UseStaticFiles();
+
 app.UseCors("Default");
 
 app.UseHttpsRedirection();
@@ -28,6 +30,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
 
 using (var scope = app.Services.CreateScope())
 {

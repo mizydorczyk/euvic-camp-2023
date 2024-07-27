@@ -5,22 +5,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class PieceRepository : IPieceRepository
+public class PieceService : IPieceRepository
 {
     private readonly BroadcastingDbContext _dbContext;
 
-    public PieceRepository(BroadcastingDbContext dbContext)
+    public PieceService(BroadcastingDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<List<Piece>> ListTop100Async()
+    public async Task<List<Piece>> ListTopAsync(int positions)
     {
         var pieces = await _dbContext.Pieces
             .Include(x => x.Artist)
             .Include(x => x.ProgrammeItems)
             .OrderByDescending(x => x.ProgrammeItems.Sum(y => y.Views))
-            .Take(100)
+            .Take(positions)
             .ToListAsync();
 
         return pieces;

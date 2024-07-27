@@ -28,8 +28,8 @@ public static class BroadcastingServiceExtension
 
         services.AddScoped<ErrorHandlingMiddleware>();
         services.AddScoped<RequestTimeMiddleware>();
-        services.AddScoped<IPieceRepository, PieceRepository>();
-        services.AddScoped<IProgrammeItemsRepository, ProgrammeItemsRepository>();
+        services.AddScoped<IPieceRepository, PieceService>();
+        services.AddScoped<IProgrammeItemsRepository, ProgrammeItemsService>();
         services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
         services.AddSingleton<IResponseCacheService, ResponseCacheService>();
 

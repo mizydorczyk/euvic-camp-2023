@@ -7,12 +7,12 @@ using Sieve.Services;
 
 namespace Infrastructure.Repositories;
 
-public class ProgrammeItemsRepository : IProgrammeItemsRepository
+public class ProgrammeItemsService : IProgrammeItemsRepository
 {
     private readonly BroadcastingDbContext _dbContext;
     private readonly ISieveProcessor _sieveProcessor;
 
-    public ProgrammeItemsRepository(BroadcastingDbContext dbContext, ISieveProcessor sieveProcessor)
+    public ProgrammeItemsService(BroadcastingDbContext dbContext, ISieveProcessor sieveProcessor)
     {
         _dbContext = dbContext;
         _sieveProcessor = sieveProcessor;

@@ -22,7 +22,7 @@ public class PieceController : ControllerBase
     [HttpGet("top100")]
     public async Task<ActionResult<List<PieceDto>>> GetTop100Pieces()
     {
-        var pieces = await _pieceRepository.ListTop100Async();
+        var pieces = await _pieceRepository.ListTopAsync(100);
 
         return Ok(pieces.Select(piece => new PieceDto
         {
